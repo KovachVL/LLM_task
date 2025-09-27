@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAMSHOP - Магазин крутых маек</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>🛒 SAMSHOP</h1>
+                <p>Стильные майки для настоящих программистов</p>
+            </div>
+            <nav class="nav">
+                <a href="#catalog">Каталог</a>
+                <a href="#about">О нас</a>
+                <a href="#contact">Контакты</a>
+                <div class="auth-links">
+                    <a href="/login" class="auth-link">
+                        <i class="fas fa-sign-in-alt"></i> Вход
+                    </a>
+                    <a href="/register" class="auth-link">
+                        <i class="fas fa-user-plus"></i> Регистрация
+                    </a>
+                </div>
+                <div class="cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h2>Эксклюзивные майки для IT-специалистов</h2>
+                <p>Покажи свой стиль с нашими уникальными дизайнами!</p>
+                <button class="cta-button">Посмотреть каталог</button>
+            </div>
+        </section>
+
+        <section id="catalog" class="catalog">
+            <div class="container">
+                <h2>Наш каталог</h2>
+                <div class="products-grid">
+                    <div class="product-card">
+                        <img src="images/fuu_1.jpg" alt="Дизайн Fuu 1">
+                        <div class="product-info">
+                            <h3>Малышка Collection #1</h3>
+                            <p>Стильная майка с уникальным дизайном</p>
+                            <div class="price">1499 ₽</div>
+                            <button class="add-to-cart" data-product="fuu_1">Добавить в корзину</button>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="images/fuu_2.jpg" alt="Дизайн Fuu 2">
+                        <div class="product-info">
+                            <h3>Collection #2</h3>
+                            <p>Современный дизайн для смелых</p>
+                            <div class="price">1599 ₽</div>
+                            <button class="add-to-cart" data-product="fuu_2">Добавить в корзину</button>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="images/malishka_1.jpg" alt="Малышка 1">
+                        <div class="product-info">
+                            <h3>Малышка Series #1</h3>
+                            <p>Милый и стильный дизайн</p>
+                            <div class="price">1399 ₽</div>
+                            <button class="add-to-cart" data-product="malishka_1">Добавить в корзину</button>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="images/malishka_2.jpg" alt="Малышка 2">
+                        <div class="product-info">
+                            <h3>Малышка Series #2</h3>
+                            <p>Яркий и запоминающийся стиль</p>
+                            <div class="price">1549 ₽</div>
+                            <button class="add-to-cart" data-product="malishka_2">Добавить в корзину</button>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="images/malishka_2_1.jpg" alt="Малышка 2.1">
+                        <div class="product-info">
+                            <h3>Series #2.1</h3>
+                            <p>Обновленная версия популярного дизайна</p>
+                            <div class="price">1649 ₽</div>
+                            <button class="add-to-cart" data-product="malishka_2_1">Добавить в корзину</button>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="images/malishka_3_1.jpg" alt="Малышка 3.1">
+                        <div class="product-info">
+                            <h3>Малышка Series #3.1</h3>
+                            <p>Эксклюзивный дизайн лимитированной серии</p>
+                            <div class="price">1799 ₽</div>
+                            <button class="add-to-cart" data-product="malishka_3_1">Добавить в корзину</button>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="images/malishka_fuu_1.jpg" alt="Малышка x Fuu">
+                        <div class="product-info">
+                            <h3>Малышка x Fuu Collab</h3>
+                            <p>Совместная коллекция двух популярных серий</p>
+                            <div class="price">1899 ₽</div>
+                            <button class="add-to-cart" data-product="malishka_fuu_1">Добавить в корзину</button>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="images/milf_1.jpg" alt="MILF Collection">
+                        <div class="product-info">
+                            <h3>MILF Collection</h3>
+                            <p>Премиум дизайн для особых случаев</p>
+                            <div class="price">2199 ₽</div>
+                            <button class="add-to-cart" data-product="milf_1">Добавить в корзину</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 SAMSHOP. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <div class="support-chat-trigger" id="supportTrigger">
+        <i class="fas fa-question-circle"></i>
+    </div>
+
+    <div class="support-chat" id="supportChat">
+        <div class="chat-header">
+            <h4>Поддержка SAMSHOP</h4>
+            <button class="close-chat" id="closeChat">×</button>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="message bot-message">
+                <div class="message-content">
+                    Привет! Я ассистент SAMSHOP. Как дела? Чем могу помочь с выбором маек?
+                </div>
+            </div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="messageInput" placeholder="Напишите ваш вопрос...">
+            <button id="sendMessage">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

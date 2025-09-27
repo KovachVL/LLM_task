@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if mode == 'login' %}Вход{% else %}Регистрация{% endif %} - SAMSHOP</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .auth-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .auth-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .auth-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .auth-header h1 {
+            color: #764ba2;
+            margin-bottom: 0.5rem;
+        }
+        
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group label {
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .form-group input {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .auth-button {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+        
+        .auth-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .auth-switch {
+            text-align: center;
+            margin-top: 1rem;
+        }
+        
+        .auth-switch a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .back-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .message {
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+        
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <a href="{{ url_for('index') }}" class="back-link">
+            <i class="fas fa-arrow-left"></i>
+            Назад в магазин
+        </a>
+        
+        <div class="auth-card">
+            <div class="auth-header">
+                <h1>🛒 SAMSHOP</h1>
+                <h2>{% if mode == 'login' %}Вход в систему{% else %}Регистрация{% endif %}</h2>
+            </div>
+            
+            <div id="message" class="message"></div>
+            
+            <form class="auth-form" id="authForm">
+                {% if mode == 'register' %}
+                <div class="form-group">
+                    <label for="full_name">Полное имя</label>
+                    <input type="text" id="full_name" name="full_name" required>
+                </div>
+                {% endif %}
+                
+                <div class="form-group">
+                    <label for="username">Имя пользователя (никнейм)</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Пароль</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                
+                <button type="submit" class="auth-button">
+                    {% if mode == 'login' %}Войти{% else %}Зарегистрироваться{% endif %}
+                </button>
+            </form>
+            
+            <div class="auth-switch">
+                {% if mode == 'login' %}
+                    Нет аккаунта? <a href="{{ url_for('register') }}">Зарегистрироваться</a>
+                {% else %}
+                    Уже есть аккаунт? <a href="{{ url_for('login') }}">Войти</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('authForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData.entries());
+            
+            const messageEl = document.getElementById('message');
+            
+            try {
+                const response = await fetch(window.location.pathname, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    messageEl.className = 'message success';
+                    messageEl.textContent = result.message;
+                    messageEl.style.display = 'block';
+                    
+                    {% if mode == 'login' %}
+                    setTimeout(() => {
+                        window.location.href = '/';
+                    }, 1000);
+                    {% else %}
+                    setTimeout(() => {
+                        window.location.href = '/login';
+                    }, 1000);
+                    {% endif %}
+                } else {
+                    messageEl.className = 'message error';
+                    messageEl.textContent = result.message;
+                    messageEl.style.display = 'block';
+                }
+            } catch (error) {
+                messageEl.className = 'message error';
+                messageEl.textContent = 'Ошибка соединения с сервером';
+                messageEl.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
